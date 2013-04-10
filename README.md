@@ -15,3 +15,7 @@ Log in, multiple users, either on the same server as the bot, coded in php and u
 Functions (Bot)
 ======
 Coded in python, the bot reads conditions from a database and fulfills them on the desired subreddit.
+
+What to Do
+======
+For now, project contributors can proceed in whatever direction they thing is best for the project. We will narrow down focuses later in the timeline.
