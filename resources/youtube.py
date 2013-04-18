@@ -40,45 +40,45 @@ def YoutoRedditBot(channel,subreddit,flair):
         yt_service = gdata.youtube.service.YouTubeService()
         uri = 'http://gdata.youtube.com/feeds/api/users/%s/uploads' % username
         WriteVideoFeed(yt_service.GetYouTubeVideoFeed(uri))
-    
+
     def WriteVideoFeed(feed):
         for entry in feed.entry:
             WriteEntryDetails(entry)
-    
+
     def search (filetosearch, query):
         with open(filetosearch, 'r') as inF:
             for line in inF:
                 if query in line:
                     return True
         return False
-    
-    
-    
+
+
+
     f = open(channel + '.dat', 'w+')
     logging.debug("Searching " + channel + "...")
     GetAndWritetUserUploads(channel)
     f.close()
     f = open (channel + '.dat', 'r')
-    
+
     title = f.readline()
     f.readline()
     url = f.readline()
-    
+
     #Erase File
     f.close()
     os.remove(channel + '.dat')
-    
+
     logging.info("Checking for duplication")
     logging.debug (url)
-    
-    
+
+
     #Checking double posting
     tnt = (r.search(title, subreddit=subreddit, sort=None, limit=0))
     o = open ('Submissions.dat', 'w+')
     for submission in tnt:
         o.write (str(submission) + os.linesep)
     o.close()
-    
+
     # Search file for matches and tries to post
     if search('Submissions.dat', title) == False:
             logging.debug ('Submitting...')
@@ -135,4 +135,3 @@ YoutoRedditBot("ShreeyamNET","MindcrackModBot","Shreeyam")
 import time
 logging.info ("All done")
 time.sleep(5)
-
