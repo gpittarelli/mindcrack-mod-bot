@@ -13,24 +13,8 @@ import gdata.youtube.service
 import praw
 import os
 import logging
-import getpass
 
-logging.basicConfig(format='%(levelname)s:%(message)s',level = logging.INFO)
-
-username = raw_input("username")
-password = getpass.getpass("password")
-
-#Setting up PRAW
-logging.info ("Setting up PRAW...")
-r = praw.Reddit(user_agent='YouReddit:D /u/martincharles07/')
-logging.info ("Signing in...")
-logging.debug ("Signing in with: " + username + "and password:" + password)
-r.login(username, password)
-logging.info ("Sign in Sucessful!")
-
-
-def YoutoRedditBot(channel,subreddit,flair):
-
+def YoutoRedditBot(r, channel, subreddit_name, flair):
     def WriteEntryDetails(entry):
         f.write(entry.media.title.text + os.linesep)
         f.write(entry.published.text + os.linesep)
@@ -54,7 +38,6 @@ def YoutoRedditBot(channel,subreddit,flair):
         return False
 
 
-
     f = open(channel + '.dat', 'w+')
     logging.debug("Searching " + channel + "...")
     GetAndWritetUserUploads(channel)
@@ -65,7 +48,7 @@ def YoutoRedditBot(channel,subreddit,flair):
     f.readline()
     url = f.readline()
 
-    #Erase File
+    # Erase File
     f.close()
     os.remove(channel + '.dat')
 
@@ -73,8 +56,8 @@ def YoutoRedditBot(channel,subreddit,flair):
     logging.debug (url)
 
 
-    #Checking double posting
-    tnt = (r.search(title, subreddit=subreddit, sort=None, limit=0))
+    # Checking double posting
+    tnt = (r.search(title, subreddit=subreddit_name, sort=None, limit=0))
     o = open ('Submissions.dat', 'w+')
     for submission in tnt:
         o.write (str(submission) + os.linesep)
@@ -85,7 +68,7 @@ def YoutoRedditBot(channel,subreddit,flair):
             logging.debug ('Submitting...')
             os.remove('Submissions.dat')
             try:
-                flairyfairy = r.submit(subreddit,title,url = url)
+                flairyfairy = r.submit(subreddit_name,title,url = url)
             except praw.errors.AlreadySubmitted:
                 logging.warning ("Failed to submit (error 1)")
                 return False
@@ -93,7 +76,7 @@ def YoutoRedditBot(channel,subreddit,flair):
                 logging.info("Submitted successfully")
                 logging.info("Trying to flair")
                 try:
-                    r.get_subreddit(subreddit).set_flair(flairyfairy,flair)
+                    r.get_subreddit(subreddit_name).set_flair(flairyfairy,flair)
                 except praw.errors.ModeratorOrScopeRequired:
                     logging.warning("Failed to flair!")
                 else:
@@ -104,35 +87,3 @@ def YoutoRedditBot(channel,subreddit,flair):
         os.remove('Submissions.dat')
         logging.warning ("Failed to submit (error 1)")
         return False
-
-
-YoutoRedditBot("adlingtont","MindcrackModBot","Adlington")
-YoutoRedditBot("ArkasMc","MindcrackModBot","Arkas")
-YoutoRedditBot("AvidyaZen","MindcrackModBot","Avidya")
-YoutoRedditBot("w92baj","MindcrackModBot","Baj")
-YoutoRedditBot("bdoubleo100","MindcrackModBot","BdoubleO")
-YoutoRedditBot("BlameTheController","MindcrackModBot","BlameTheController")
-YoutoRedditBot("ethoslab","MindcrackModBot","Etho")
-YoutoRedditBot("generikb","MindcrackModBot","Generikb")
-YoutoRedditBot("guudeboulderfist","MindcrackModBot","Guude")
-YoutoRedditBot("jsano19","MindcrackModBot","Jsano")
-YoutoRedditBot("supermcgamer","MindcrackModBot","MCGamer")
-YoutoRedditBot("MillBeeful","MindcrackModBot","Millbee")
-YoutoRedditBot("mhykol","MindcrackModBot","Mhykol")
-YoutoRedditBot("nebris88","MindcrackModBot","Nebris")
-YoutoRedditBot("pakratt13","MindcrackModBot","Pakratt")
-YoutoRedditBot("paulsoaresjr","MindcrackModBot","PaulSoaresJr")
-YoutoRedditBot("pauseunpause","MindcrackModBot","Pause")
-YoutoRedditBot("Pyropuncher","MindcrackModBot","Pyrao")
-YoutoRedditBot("ShreeyamNET","MindcrackModBot","Shreeyam")
-#YoutoRedditBot("xisumavoid","hermitcraft")
-#YoutoRedditBot("sethbling","minecraft")
-#YoutoRedditBot("Keralis","hermitcraft")
-#YoutoRedditBot("SlamacowCreations","minecraft")
-#YoutoRedditBot("digbuildlive","minecraft")
-#YoutoRedditBot("elementanimation","minecraft")
-#YoutoRedditBot("animationcraftpg5","minecraft")
-
-import time
-logging.info ("All done")
-time.sleep(5)
