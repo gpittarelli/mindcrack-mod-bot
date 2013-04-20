@@ -47,12 +47,12 @@ for (name, youtube, twitch) in mindcrackers:
     else:
         logging.info("Skipping YouTube channel")
 
-        if twitch:
-            if twitch_is_streaming(twitch):
-                streamers.append((name, "//twitch.tv/%s" % (twitch)))
-                logging.info("%s is streaming!" % (name))
-            else:
-                logging.info("Skipping Twitch stream")
+    if twitch:
+        if twitch_is_streaming(twitch):
+            streamers.append((name, "//twitch.tv/%s" % (twitch)))
+            logging.info("%s is streaming!" % (name))
+    else:
+        logging.info("Skipping Twitch stream")
 
 # Get sidebar
 settings = subreddit.get_settings()
@@ -73,10 +73,10 @@ if streamers:
 
     try:
         marker_pos = sidebar.index(opening_marker) + len(opening_marker)
-    sidebar = sidebar[:marker_pos] + streamers_msg + sidebar[marker_pos:]
-except ValueError:
-    # Substring not found
-    logging.warning("No streams marker found.")
+        sidebar = sidebar[:marker_pos] + streamers_msg + sidebar[marker_pos:]
+    except ValueError:
+        # Substring not found
+        logging.warning("No streams marker found.")
 
 '''
  Apply sidebar changes
