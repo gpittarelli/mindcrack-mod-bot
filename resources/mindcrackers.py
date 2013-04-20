@@ -1,4 +1,4 @@
-f#!/usr/bin/env python
+#!/usr/bin/env python
 '''
 Defines a list of the members of the mindcrack community.
 

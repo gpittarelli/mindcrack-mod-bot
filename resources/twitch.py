@@ -3,8 +3,7 @@
 Check and update twitch.tv streaming status!
 
 More info on the Twitch.TV api here:
-
-https://github.com/justintv/Twitch-API/blob/master/v2_resources/streams.md#get-streamschannel
+  https://github.com/justintv/Twitch-API/blob/master/v2_resources/streams.md
 '''
 import logging
 import requests
@@ -21,12 +20,13 @@ otherwise it will be a JSON object with details.
 '''
 TWITCH_STREAM_URL = "https://api.twitch.tv/kraken/streams/%s"
 
+
 def twitch_is_streaming(stream_name):
     stream = requests.get(TWITCH_STREAM_URL % (stream_name))
 
     try:
         # A NULL in JSON translates to None in python
-        return (stream.json()['stream'] != None)
+        return (stream.json()['stream'] is not None)
     except ValueError:
         # JSON Decode failed
         logging.warning("Invalid message from Twitch: %s" % (stream.json()))
