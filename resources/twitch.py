@@ -30,12 +30,11 @@ def twitch_is_streaming(stream_name):
     except ValueError:
         # JSON Decode failed
         logging.warning("")
-    return False
-except KeyError:
-    # Weird response from Twitch.TV, stream name may be wrong
-    # (Or the person may use Justin.TV instead of twitch...)
-    logging.warning("Twitch.TV did not recognize stream name: %s"
-                    % (stream_name))
-    logging.warning("Message received was: %s"
-                    % (stream.json()))
-    return False
+        return False
+    except KeyError:
+        # Weird response from Twitch.TV, stream name may be wrong
+        # (Or the person may use Justin.TV instead of twitch...)
+        logging.warning("Twitch.TV did not recognize stream name: %s"
+                        % (stream_name))
+        logging.warning("Message received was: %s" % (stream.json()))
+        return False
