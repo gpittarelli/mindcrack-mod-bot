@@ -6,7 +6,6 @@ More info on the Twitch.TV api here:
 
 https://github.com/justintv/Twitch-API/blob/master/v2_resources/streams.md#get-streamschannel
 '''
-import praw
 import logging
 import requests
 
