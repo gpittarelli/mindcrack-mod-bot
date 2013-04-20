@@ -18,13 +18,13 @@ import time
 # Import local project files into the global namespace:
 from mindcrackers import *
 from youtube import *
-from twitch import *
+from justintv import *
 
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
-username = raw_input("username")
-password = getpass.getpass("password")
-subreddit_name = raw_input("subreddit")
+username = "mdcrackbot_test" #raw_input("username")
+password = "mdcrackbot_test" #getpass.getpass("password")
+subreddit_name = "mindcrack_theme" #raw_input("subreddit")
 
 # Setting up PRAW
 logging.info("Setting up PRAW...")
@@ -36,25 +36,40 @@ logging.info("Sign in Sucessful!")
 
 subreddit = r.get_subreddit(subreddit_name)
 
-streamers = []
-
-for (name, youtube, twitch) in mindcrackers:
-    logging.info("Updating: %s (Youtube: %s, Twitch: %s)"
-                 % (name, youtube, twitch))
+#
+# Check youtube and post updates
+logging.info("Checking youtube...")
+for (name, youtube, _) in []: # mindcrackers:
+    logging.info("Check youtube videos for: %s (Channel: %s)"
+                 % (name, youtube))
 
     if youtube:
         YoutoRedditBot(r, youtube, subreddit_name, name)
     else:
         logging.info("Skipping YouTube channel")
 
-    if twitch:
-        if twitch_is_streaming(twitch):
-            streamers.append((name, "//twitch.tv/%s" % (twitch)))
-            logging.info("%s is streaming!" % (name))
-    else:
-        logging.info("Skipping Twitch stream")
+#
+# Fetch all stream info
+stream_to_name = {}
+for (name, _, stream) in mindcrackers:
+    if stream:
+        stream_to_name[stream] = name
 
-# Get sidebar
+logging.info("Checking streams...")
+active_streams = justin_fetch_channels(stream_to_name.keys())
+
+streamers_msg = ""
+if active_streams:
+    links = map(lambda s: "[%s](//justin.tv/%s)" % (stream_to_name[s], s),
+                active_streams)
+    streamers_msg = " | **Now Streaming:** " + (", ".join(links))
+
+    logging.info("Currently streaming: " + (", ".join(active_streams)))
+else:
+    logging.info("No mindcrackers are streaming")
+
+#
+# Update Sidebar
 settings = subreddit.get_settings()
 sidebar = settings['description']
 
@@ -66,11 +81,7 @@ sidebar = re.sub(r'(\[\]\(#BOT_STREAMS\)).*(\[\]\(/BOT_STREAMS\))',
                  '\\1\\2',
                  sidebar)
 
-if streamers:
-    links = map(lambda (name, url): "[%s](%s)" % (name, url), streamers)
-
-    streamers_msg = " | **Now Streaming:** " + (", ".join(links))
-
+if streamers_msg:
     try:
         marker_pos = sidebar.index(opening_marker) + len(opening_marker)
         sidebar = sidebar[:marker_pos] + streamers_msg + sidebar[marker_pos:]
@@ -84,8 +95,8 @@ if streamers:
    :0: UserWarning: Extra settings fields: [u'submit_text_label',
    u'submit_link_label', u'exclude_banned_modqueue']
 This seems to be completely benign, perhaps praw is not completely up to date
-subreddit.update_settings(description=sidebar)
 '''
+subreddit.update_settings(description=sidebar)
 
 logging.info("All done")
 time.sleep(5)

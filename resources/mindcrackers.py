@@ -4,12 +4,14 @@ Defines a list of the members of the mindcrack community.
 
 Each Mindcracker is represented as a tuple of:
 
-(name, youtube channel name, twitch user name)
+(name, youtube channel name, stream channel name)
 
 Note that the name (first field) is also used as the user's flair
 class in the subreddit.
 
-If the youtube/twitch name is missing, then that site will not be
+Stream channel name is either for Twitch.TV or Justin.TV
+
+If the youtube/stream name is missing, then that site will not be
 queried and updated for that user. (If some mindcrackers don't want
 videos auto posted). For future reference, these lines are marked with
 comments including the missing field.
@@ -28,7 +30,7 @@ mindcrackers = [
     ("Etho", "ethoslab", "ethotv"),
     ("Generikb", "generikb", "generikb"),
     ("Guude", "guudeboulderfist", "guude"),
-    ("Jsano", "jsano19", ""), # Has a justin.tv (jsano19), not twitch...
+    ("Jsano", "jsano19", "jsano19"),
     ("Kurt", "", "kurtjmac"), # YT: kurtjmac
     ("MCGamer", "supermcgamer", "SuperMCGamer"),
     ("Millbee", "MillBeeful", "millbee"),
