@@ -29,7 +29,7 @@ def twitch_is_streaming(stream_name):
         return (stream.json()['stream'] != None)
     except ValueError:
         # JSON Decode failed
-        logging.warning("")
+        logging.warning("Invalid message from Twitch: %s" % (stream.json()))
         return False
     except KeyError:
         # Weird response from Twitch.TV, stream name may be wrong
