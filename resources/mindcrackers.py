@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+f#!/usr/bin/env python
 '''
 Defines a list of the members of the mindcrack community.
 
@@ -17,31 +17,31 @@ comments including the missing field.
 '''
 
 mindcrackers = [
- ("Adlington", "adlingtont", ""), # No twitch
- ("Anderzel", "", "anderzel"), # YT: imanderzel
- ("Arkas", "ArkasMc", "mc_arkas"),
- ("Avidya", "AvidyaZen", "AvidyaZEN"),
- ("Baj", "w92baj", "w92baj"),
- ("BdoubleO", "bdoubleo100", "bdoubleo"),
- ("BlameTheController", "BlameTheController", "blamethecontroller"),
- ("Docm", "", "docm77live"), # YT: docm77
- ("Etho", "ethoslab", "ethotv"),
- ("Generikb", "generikb", "generikb"),
- ("Guude", "guudeboulderfist", "guude"),
- ("Jsano", "jsano19", ""), # Has a justin.tv (jsano19), not twitch...
- ("Kurt", "", "kurtjmac"), # YT: kurtjmac
- ("MCGamer", "supermcgamer", "SuperMCGamer"),
- ("Millbee", "MillBeeful", "millbee"),
- ("Mhykol", "mhykol", "mhykol"),
- ("Nebris", "nebris88", "nebris"),
- ("Pakratt", "pakratt13", ""), # No twitch
- ("PaulSoaresJr", "paulsoaresjr", ""), # No twitch
- ("Pause", "pauseunpause", "pauseunpause"),
- ("Pyrao", "Pyropuncher", "pyropuncher"),
- ("Shreeyam", "ShreeyamNET", "shreeyamnet"),
- ("TheJims", "", "thejimslp"), # YT: thejims
- ("VintageBeef", "", "vintagebeef"), # YT: vintagebeef
- ("Zisteau", "", "zisteau1"), # YT: zisteau
+    ("Adlington", "adlingtont", ""), # No twitch
+    ("Anderzel", "", "anderzel"), # YT: imanderzel
+    ("Arkas", "ArkasMc", "mc_arkas"),
+    ("Avidya", "AvidyaZen", "AvidyaZEN"),
+    ("Baj", "w92baj", "w92baj"),
+    ("BdoubleO", "bdoubleo100", "bdoubleo"),
+    ("BlameTheController", "BlameTheController", "blamethecontroller"),
+    ("Docm", "", "docm77live"), # YT: docm77
+    ("Etho", "ethoslab", "ethotv"),
+    ("Generikb", "generikb", "generikb"),
+    ("Guude", "guudeboulderfist", "guude"),
+    ("Jsano", "jsano19", ""), # Has a justin.tv (jsano19), not twitch...
+    ("Kurt", "", "kurtjmac"), # YT: kurtjmac
+    ("MCGamer", "supermcgamer", "SuperMCGamer"),
+    ("Millbee", "MillBeeful", "millbee"),
+    ("Mhykol", "mhykol", "mhykol"),
+    ("Nebris", "nebris88", "nebris"),
+    ("Pakratt", "pakratt13", ""), # No twitch
+    ("PaulSoaresJr", "paulsoaresjr", ""), # No twitch
+    ("Pause", "pauseunpause", "pauseunpause"),
+    ("Pyrao", "Pyropuncher", "pyropuncher"),
+    ("Shreeyam", "ShreeyamNET", "shreeyamnet"),
+    ("TheJims", "", "thejimslp"), # YT: thejims
+    ("VintageBeef", "", "vintagebeef"), # YT: vintagebeef
+    ("Zisteau", "", "zisteau1"), # YT: zisteau
 ]
 
 

@@ -38,20 +38,20 @@ subreddit = r.get_subreddit(subreddit_name)
 streamers = []
 
 for (name, youtube, twitch) in mindcrackers:
-  logging.info("Updating: %s (Youtube: %s, Twitch: %s)"
-               % (name, youtube, twitch))
+    logging.info("Updating: %s (Youtube: %s, Twitch: %s)"
+                 % (name, youtube, twitch))
 
-  if youtube:
-    YoutoRedditBot(r, youtube, subreddit_name, name)
-  else:
-    logging.info("Skipping YouTube channel")
+    if youtube:
+        YoutoRedditBot(r, youtube, subreddit_name, name)
+    else:
+        logging.info("Skipping YouTube channel")
 
-  if twitch:
-    if twitch_is_streaming(twitch):
-      streamers.append((name, "//twitch.tv/%s" % (twitch)))
-      logging.info("%s is streaming!" % (name))
-  else:
-    logging.info("Skipping Twitch stream")
+        if twitch:
+            if twitch_is_streaming(twitch):
+                streamers.append((name, "//twitch.tv/%s" % (twitch)))
+                logging.info("%s is streaming!" % (name))
+            else:
+                logging.info("Skipping Twitch stream")
 
 # Get sidebar
 settings = subreddit.get_settings()
@@ -66,14 +66,14 @@ sidebar = re.sub(r'(\[\]\(#BOT_STREAMS\)).*(\[\]\(/BOT_STREAMS\))',
                  sidebar)
 
 if streamers:
-  links = map(lambda (name, url): "[%s](%s)" % (name, url), streamers)
+    links = map(lambda (name, url): "[%s](%s)" % (name, url), streamers)
 
-  streamers_msg = " | **Now Streaming:** " + (", ".join(links))
+    streamers_msg = " | **Now Streaming:** " + (", ".join(links))
 
-  try:
-    marker_pos = sidebar.index(opening_marker) + len(opening_marker)
+    try:
+        marker_pos = sidebar.index(opening_marker) + len(opening_marker)
     sidebar = sidebar[:marker_pos] + streamers_msg + sidebar[marker_pos:]
-  except ValueError:
+except ValueError:
     # Substring not found
     logging.warning("No streams marker found.")
 

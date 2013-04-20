@@ -65,24 +65,24 @@ def YoutoRedditBot(r, channel, subreddit_name, flair):
 
     # Search file for matches and tries to post
     if search('Submissions.dat', title) == False:
-            logging.debug ('Submitting...')
-            os.remove('Submissions.dat')
+        logging.debug ('Submitting...')
+        os.remove('Submissions.dat')
+        try:
+            flairyfairy = r.submit(subreddit_name,title,url = url)
+        except praw.errors.AlreadySubmitted:
+            logging.warning ("Failed to submit (error 1)")
+            return False
+        else:
+            logging.info("Submitted successfully")
+            logging.info("Trying to flair")
             try:
-                flairyfairy = r.submit(subreddit_name,title,url = url)
-            except praw.errors.AlreadySubmitted:
-                logging.warning ("Failed to submit (error 1)")
-                return False
+                r.get_subreddit(subreddit_name).set_flair(flairyfairy,flair)
+            except praw.errors.ModeratorOrScopeRequired:
+                logging.warning("Failed to flair!")
             else:
-                logging.info("Submitted successfully")
-                logging.info("Trying to flair")
-                try:
-                    r.get_subreddit(subreddit_name).set_flair(flairyfairy,flair)
-                except praw.errors.ModeratorOrScopeRequired:
-                    logging.warning("Failed to flair!")
-                else:
-                    logging.info("Flaired successfully")
-                finally:
-                    return True
+                logging.info("Flaired successfully")
+            finally:
+                return True
     else:
         os.remove('Submissions.dat')
         logging.warning ("Failed to submit (error 1)")
