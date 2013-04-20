@@ -22,9 +22,9 @@ from justintv import *
 
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
-username = "mdcrackbot_test" #raw_input("username")
-password = "mdcrackbot_test" #getpass.getpass("password")
-subreddit_name = "mindcrack_theme" #raw_input("subreddit")
+username = raw_input("username")
+password = getpass.getpass("password")
+subreddit_name = raw_input("subreddit")
 
 # Setting up PRAW
 logging.info("Setting up PRAW...")
